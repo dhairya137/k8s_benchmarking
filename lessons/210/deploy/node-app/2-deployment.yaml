@@ -29,7 +29,7 @@ spec:
         - name: PGDATABASE
           value: mydb
         - name: PGHOST
-          value: my-postgres.antonputra.pvt
+          value: 10.0.49.59
         volumeMounts:
         - name: sql
           mountPath: /init.sql
@@ -46,10 +46,10 @@ spec:
         resources:
           requests:
             memory: 256Mi
-            cpu: "2"
+            cpu: "1"
           limits:
             memory: 256Mi
-            cpu: "2"
+            cpu: "1"
         volumeMounts:
         - name: config
           mountPath: /app/config.yaml
@@ -61,16 +61,16 @@ spec:
       - name: sql
         configMap:
           name: node-app-sql
-      tolerations:
-      - effect: NoSchedule
-        operator: Exists
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: node
-                operator: In
-                values:
-                - node-01
-                - general
+      # tolerations:
+      # - effect: NoSchedule
+      #   operator: Exists
+      # affinity:
+      #   nodeAffinity:
+      #     requiredDuringSchedulingIgnoredDuringExecution:
+      #       nodeSelectorTerms:
+      #       - matchExpressions:
+      #         - key: node
+      #           operator: In
+      #           values:
+      #           - node-01
+      #           - general

@@ -8,8 +8,13 @@ data:
   Tester.toml: |
     [test]
     request = "get"
+    protocol = "http1"
     min_clients = 1
     max_clients = 1000
-    stage_interval_s = 60
-    request_delay_s = 0.02
-    request_timeout_s = 1
+    stage_interval_s = 20
+    request_delay_ms = 40
+    request_timeout_ms = 1000
+
+    [metrics]
+    enabled = true
+    port = 8085

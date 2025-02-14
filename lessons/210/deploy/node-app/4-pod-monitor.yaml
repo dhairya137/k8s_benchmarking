@@ -14,4 +14,6 @@ spec:
     matchLabels:
       app: node-app
   podMetricsEndpoints:
-  - port: http
+  - port: metrics  # This will match the port name "metrics" in your pod
+    path: /metrics
+    interval: 15s

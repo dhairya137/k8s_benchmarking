@@ -1,27 +1,29 @@
 ---
-apiVersion: batch/v1
-kind: Job
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: go-client
   namespace: default
 spec:
-  parallelism: 19
+  replicas: 1
+  selector:
+    matchLabels:
+      app: go-client
   template:
     metadata:
       labels:
         app: go-client
     spec:
-      restartPolicy: Never
       terminationGracePeriodSeconds: 0
       containers:
       - name: go-client
-        image: aputra/load-tester:v15
+        image: aputra/load-tester:v26
         env:
         - name: TEST_URL
           value: "http://go-app.default.svc.cluster.local:8080/api/devices"
         ports:
         - name: metrics
-          containerPort: 8080
+          containerPort: 8085
         resources:
           requests:
             memory: 512Mi
@@ -33,17 +35,20 @@ spec:
         - name: config
           mountPath: Tester.toml
           subPath: Tester.toml
+        - name: tls
+          mountPath: /ca.pem
+          subPath: tls.crt
       volumes:
       - name: config
         configMap:
           name: config-client
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: node
-                operator: In
-                values:
-                - node-00
-                - clients
+      - name: tls
+        secret:
+          secretName: my-ca
+      # affinity:
+      #   nodeAffinity:
+      #     requiredDuringSchedulingIgnoredDuringExecution:
+      #       nodeSelectorTerms:
+      #       - matchExpressions:
+      #           - node-00
+      #           - clients

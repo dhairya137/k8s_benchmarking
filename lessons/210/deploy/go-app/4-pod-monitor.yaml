@@ -14,4 +14,6 @@ spec:
     matchLabels:
       app: go-app
   podMetricsEndpoints:
-  - port: metrics
+  - port: metrics  # This will match the port name "metrics" in your pod
+    path: /metrics
+    interval: 15s
