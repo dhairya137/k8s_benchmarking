@@ -14,13 +14,13 @@ spec:
       labels:
         app: python-app
     spec:
-      nodeSelector:
-        service: python
-      tolerations:
-        - key: service
-          operator: Equal
-          value: python
-          effect: NoSchedule
+      # nodeSelector:
+      #   service: python
+      # tolerations:
+      #   - key: service
+      #     operator: Equal
+      #     value: python
+      #     effect: NoSchedule
       containers:
         - name: python-app
           image: aputra/python-app-180:v12

@@ -7,6 +7,7 @@ You can find tutorial [here](https://youtu.be/vJsqDqq1R0Y).
 ```bash
 kubectl port-forward svc/tempo 4317 -n monitoring
 kubectl port-forward svc/prometheus-operated 9090 -n monitoring
+sudo kubectl port-forward svc/grafana 80 -n monitoring
 kubectl apply -R -f lessons/180/deployment
 kubectl apply -f 1-test
 kubectl apply -f 2-test

@@ -14,13 +14,13 @@ spec:
       labels:
         app: go-app
     spec:
-      nodeSelector:
-        service: golang
-      tolerations:
-        - key: service
-          operator: Equal
-          value: golang
-          effect: NoSchedule
+      # nodeSelector:
+      #   service: golang
+      # tolerations:
+      #   - key: service
+      #     operator: Equal
+      #     value: golang
+      #     effect: NoSchedule
       containers:
         - name: go-app
           image: aputra/go-app-180:v12

@@ -11,5 +11,5 @@ s3:
 db:
   user: myuser
   password: devops123
-  host: "192.168.50.74"
+  host: "10.0.49.59"
   database: mydb
