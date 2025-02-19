@@ -1,0 +1,58 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rust-app
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rust-app
+  template:
+    metadata:
+      labels:
+        app: rust-app
+    spec:
+      # nodeSelector:
+      #   node: node-01
+      containers:
+      - name: rust-app
+        image: dhairya13703/rust-app:v2
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 8080
+        # - name: metrics
+        #   containerPort: 8085
+        resources:
+          requests:
+            memory: 512Mi
+            cpu: 500m
+          limits:
+            memory: 512Mi
+            cpu: 500m
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: http
+          periodSeconds: 1
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: http
+          periodSeconds: 1
+        # volumeMounts:
+        # - name: config
+        #   mountPath: config.toml
+        #   subPath: config.toml
+        # - name: my-volume
+        #   mountPath: /tmp
+      # volumes:
+      # - name: config
+      #   configMap:
+      #     name: rust-app
+      # - name: my-volume
+      #   hostPath:
+      #     path: /tmp
+      #     type: DirectoryOrCreate

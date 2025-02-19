@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: config-client
-  namespace: benchmark
+  namespace: default
 data:
   Tester.toml: |
     [test]

@@ -3,9 +3,9 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: cpp-client
-  namespace: benchmark
+  namespace: default
 spec:
-  parallelism: 29
+  parallelism: 1
   template:
     metadata:
       labels:
@@ -18,7 +18,7 @@ spec:
         image: quay.io/aputra/load-tester:v27
         env:
         - name: TEST_URL
-          value: "http://cpp-app.antonputra.pvt:8080/api/devices"
+          value: "http://cpp-app.default.svc.cluster.local:8080/api/devices"
         ports:
         - name: metrics
           containerPort: 8085
@@ -43,12 +43,12 @@ spec:
       - name: tls
         secret:
           secretName: my-ca
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: node
-                operator: In
-                values:
-                - clients
+      # affinity:
+      #   nodeAffinity:
+      #     requiredDuringSchedulingIgnoredDuringExecution:
+      #       nodeSelectorTerms:
+      #       - matchExpressions:
+      #         - key: node
+      #           operator: In
+      #           values:
+      #           - clients
