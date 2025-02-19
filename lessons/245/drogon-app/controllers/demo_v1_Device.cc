@@ -28,3 +28,11 @@ void Device::get(const HttpRequestPtr &req, std::function<void(const HttpRespons
 
     callback(resp);
 }
+
+void Device::health(const HttpRequestPtr &req, std::function<void(const HttpResponsePtr &)> &&callback)
+{
+    auto resp = HttpResponse::newHttpResponse();
+    resp->setStatusCode(k200OK);
+    resp->setBody("OK");
+    callback(resp);
+}
